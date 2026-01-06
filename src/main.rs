@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 extern crate fs_extra;
 use fs_extra::dir::get_size;
 use libc::statvfs;
@@ -7,13 +7,20 @@ use std::fs;
 use std::path::Path;
 use std::path::PathBuf;
 
-#[derive(Parser)]
+#[derive(Parser, Clone)]
 #[command(version, about = "Inspects file metadata")]
-struct Args {
-    path: PathBuf,
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
 
-    #[arg(short, long)]
-    human_readable: bool,
+#[derive(Subcommand, Clone)]
+enum Commands {
+    /// Filesystem disk usage (df-style, O(1))
+    Disk { path: PathBuf },
+
+    /// Folder inspection (du / ls style)
+    Folder { path: PathBuf },
 }
 
 struct EntryInfo {
@@ -52,9 +59,9 @@ fn human_size(bytes: u64) -> String {
     format!("{:.2} {}", size, UNITS[i])
 }
 
-fn get_dir(args: Args) -> anyhow::Result<()> {
-    let entries: Vec<_> = fs::read_dir(&args.path)?.filter_map(Result::ok).collect();
-    let folder_size = get_size(&args.path)?;
+fn run_dir(path: &PathBuf) -> anyhow::Result<()> {
+    let entries: Vec<_> = fs::read_dir(path)?.filter_map(Result::ok).collect();
+    let folder_size = get_size(path)?;
 
     let bytes = folder_size as f64;
     let kb = bytes / 1024.0;
@@ -63,7 +70,7 @@ fn get_dir(args: Args) -> anyhow::Result<()> {
 
     println!(
         "Path: {:?}\n{:.2} GB | {:.2} MB | {:.2} KB | {:.2} B",
-        args.path.display(),
+        path.display(),
         gb,
         mb,
         kb,
@@ -101,10 +108,29 @@ fn get_dir(args: Args) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn get_disk() {}
+fn run_disk(path: &Path) -> anyhow::Result<()> {
+    let (total, used, free) = disk_usage(path)?;
+
+    println!(
+        "Disk usage:\n  Total: {}\n  Used:  {}\n  Free:  {}",
+        human_size(total),
+        human_size(used),
+        human_size(free),
+    );
+
+    Ok(())
+}
 
 fn main() -> anyhow::Result<()> {
-    let args = Args::parse();
-    get_dir(args);
+    let cli = Cli::parse();
+
+    match cli.command {
+        Commands::Disk { path } => {
+            run_disk(&path)?;
+        }
+        Commands::Folder { path } => {
+            run_dir(&path)?;
+        }
+    }
     Ok(())
 }
