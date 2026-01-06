@@ -1,6 +1,8 @@
 use clap::Parser;
 use filesize::PathExt;
 use std::path::Path;
+extern crate fs_extra;
+use fs_extra::dir::get_size;
 use std::path::PathBuf;
 
 #[derive(Parser)]
@@ -14,14 +16,17 @@ struct Args {
 
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    let metadata = std::fs::metadata(&args.path)?;
+    // let metadata = std::fs::metadata(&args.path)?;
+    let folder_size = get_size(&args.path)?;
 
-    let size = if args.human_readable {
-        format!("{} KB", metadata.len() / 1024)
-    } else {
-        format!("{} bytes", metadata.len())
-    };
+    let bytes = folder_size as f64;
+    let kb = bytes / 1024.0;
+    let mb = kb / 1024.0;
+    let gb = mb / 1024.0;
 
-    println!("Path: {:?}\nSize: {}", args.path, size);
+    println!(
+        "Path: {:?}\n{:.2} GB | {:.2} MB | {:.2} KB | {:.2} B",
+        args.path, gb, mb, kb, bytes
+    );
     Ok(())
 }
