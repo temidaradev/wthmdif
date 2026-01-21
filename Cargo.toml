@@ -1,10 +1,10 @@
 [package]
-name = "wthmdif"
-version = "0.1.1"
+name = "mdif"
+version = "0.1.12"
 edition = "2021"
 description = "written in rust, terminal-based disk usage analyzer."
 license = "MIT"
-repository = "https://github.com/temidaradev/wthmdif"
+repository = "https://github.com/temidaradev/mdif"
 keywords = ["disk", "usage", "analyzer", "cli", "visualization"]
 categories = ["command-line-utilities", "filesystem"]
 readme = "README.md"

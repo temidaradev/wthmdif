@@ -1,4 +1,4 @@
-# wthmdif (Why The Hell My Disk Is Full?)
+# mdif (My Disk Is Full?)
 
 A terminal-based disk usage analyzer written in Rust. It helps identify storage consumption with a clear and intuitive interface.
 

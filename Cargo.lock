@@ -267,6 +267,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c5a2d376baa530d1238d133232d15e239abad80d05838b4b59354e5268af431f"
 
 [[package]]
+name = "mdif"
+version = "0.1.12"
+dependencies = [
+ "anyhow",
+ "clap",
+ "colored",
+ "filesize",
+ "indicatif",
+ "jwalk",
+ "libc",
+]
+
+[[package]]
 name = "once_cell"
 version = "1.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -459,17 +472,4 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc"
 dependencies = [
  "windows-link",
-]
-
-[[package]]
-name = "wthmdif"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "clap",
- "colored",
- "filesize",
- "indicatif",
- "jwalk",
- "libc",
 ]
