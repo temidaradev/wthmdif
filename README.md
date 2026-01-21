@@ -31,6 +31,11 @@ cargo install mdif
     ```bash
     cargo install --path .
     ```
+> [!NOTE]
+> Ensure `~/.cargo/bin` is in your `PATH`. If the `mdif` command is not found after installation, you may need to add it to your shell configuration (e.g., `~/.bashrc` or `~/.zshrc`):
+> ```bash
+> export PATH="$HOME/.cargo/bin:$PATH"
+> ```
 
 Once installed, you can run the app from anywhere:
 
