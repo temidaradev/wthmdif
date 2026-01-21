@@ -1,4 +1,4 @@
-# mdif (My Disk Is Full?)
+# mdif (My Disk Is Full)
 
 A terminal-based disk usage analyzer written in Rust. It helps identify storage consumption with a clear and intuitive interface.
 
@@ -18,13 +18,13 @@ A terminal-based disk usage analyzer written in Rust. It helps identify storage 
 This is the easiest method if you have Rust installed. It downloads the package from crates.io and installs the binary to your path.
 
 ```bash
-cargo install wthmdif
+cargo install mdif
 ```
 
 ### Method 2: Build from Source
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/temidaradev/wthmdif.git
+    git clone https://github.com/temidaradev/mdif.git
     cd wthmdif
     ```
 2.  Install locally:
@@ -35,7 +35,7 @@ cargo install wthmdif
 Once installed, you can run the app from anywhere:
 
 ```bash
-wthmdif folder .
+mdif folder .
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ wthmdif folder .
 Inspect a specific directory to list files and subdirectories sorted by size.
 
 ```bash
-wthmdif folder /path/to/directory
+mdif folder /path/to/directory
 ```
 
 **Output:**
@@ -57,11 +57,11 @@ wthmdif folder /path/to/directory
 there is also a --detail flag but it wouldnt be really efficient to use in large folders. 
 
 ```bash
-wthmdif folder --detail /path/to/directory
+mdif folder --detail /path/to/directory
 ```
 
 **Output:**
--   **Path**: `~/Documents/wthmdif/`
+-   **Path**: `~/Documents/mdif/`
 -   **Total Size**: `625.59 MB`
 -   625.53 MB  DIR   "./target"
     522.00 MB  DIR   "./target/debug"
@@ -82,13 +82,13 @@ and this goes on....
 Get a summary of the disk partition hosting the specific path.
 
 ```bash
-wthmdif disk /
+mdif disk /
 ```
 
 an example for disk mounted on /mnt
 
 ```bash
-wthmdif disk /mnt/your-disk/
+mdif disk /mnt/your-disk/
 ```
 
 
